@@ -1,0 +1,156 @@
+html{
+    font-family: 'Montserrat', sans-serif;
+    color: #707070;
+    font-weight: 600;
+    background-color: snow;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    image-rendering: auto;
+    text-rendering: geometricPrecision;
+    overflow-x: hidden;
+}
+
+div{
+    padding: 0;
+    margin: 0;
+}
+
+
+.section1{
+    text-align: center;
+    font-size: 1.1em;
+    height: 96.5vh;
+    position: relative;
+}
+
+.section2{
+    font-size: 1.1em;
+    height: 96.5vh;
+    position: relative;
+}
+
+.section3{
+    font-size: 1.1em;
+    height: 96.5vh;
+    position: relative;
+}
+
+.vega1{
+    position: absolute;
+    bottom: 78%;
+    left: 35%;
+
+}
+
+.vega2{
+    position: absolute;
+    bottom: 70%;
+    left: 20%;
+}
+
+.p-landing{
+    width: 55%;
+    margin-left: 22.5%;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 2em;
+}
+.p-germany{
+    width: 25%;
+    margin-left: 5%;
+    font-size: 1.5em;
+    font-weight: 400;
+
+}
+
+.p-regional{
+    width: 15%;
+    margin-left: 5%;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-top: 8em;
+}
+h1{ 
+    font-size: 2.5em;
+    padding-top: 1em;
+}
+
+h3{
+    margin-left: 5%;
+    font-size: 2em;
+    font-weight: 600;
+    padding-top: 1em;
+}
+
+h4{
+    padding-top: 1em;
+}
+
+.scroll-down-action{
+    width: 3em;
+    position: absolute;
+    bottom: 5%;
+    transition: .5s;
+    left: 50%;
+}
+
+.scroll-down-action:hover{
+    transform: translateY(.5rem) scale(1);
+}
+
+.mobility-icons{
+    height: 3em;
+    margin: 4% 3%;
+}
+
+.footer-img{
+    height: 10em;
+}
+
+.rki{
+    height: 8rem;
+}
+
+.owid{ 
+    height: 8rem;
+}
+
+.cr-icon{
+    position: absolute;
+    left: 40%;
+    margin-top: 8em;
+    margin-bottom: .3em;
+}
+
+
+.footertext{
+    width: 35em;
+    font-size: 1.3em;
+    flex: 1 1 auto;
+}
+
+    
+.td-img{
+     text-align: right; 
+     vertical-align: bottom;
+}
+    
+td{
+
+    padding-bottom: 3em;
+    padding-right: 3em;
+
+} 
+
+table{
+
+    margin-left: 3em;
+
+}
+
+tr{
+
+    margin: auto -5em;
+
+}
