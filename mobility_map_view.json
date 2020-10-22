@@ -1,0 +1,1452 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "snow",
+  "padding": 5,
+      "width": 900,
+    "height": 630,
+  "data": [
+    {
+      "name": "selector036_store",
+      "values": [
+        {
+          "unit": "concat_0_layer_0",
+          "fields": [{"type": "E", "field": "region"}],
+          "values": ["Berlin"]
+        }
+      ]
+    },
+    {
+      "name": "selector037_store",
+      "values": [
+        {
+          "unit": "concat_0_layer_1",
+          "fields": [{"type": "E", "field": "region"}],
+          "values": ["Berlin"]
+        }
+      ]
+    },
+    {
+      "name": "selector039_store",
+      "values": [
+        {
+          "unit": "concat_1_concat_0_concat_0_layer_1_layer_0",
+          "fields": [{"type": "E", "field": "date"}],
+          "values": ["2020-04-24"]
+        }
+      ]
+    },
+    {"name": "selector035_store"},
+    {"name": "selector038_store"},
+    {
+      "name": "source_0",
+      "url": "/assets/altair-data-76819cacaaae600cccf297cfc2bdb3cc.json",
+      "format": {"type": "json"}
+    },
+    {
+      "name": "source_1",
+      "url": "/assets/altair-data-f09bbd6e3108a14a62505d605e8ee227.json",
+      "format": {"type": "json", "parse": {"date": "date"}}
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "source_1",
+          "key": "region",
+          "fields": ["GEN"],
+          "values": ["Cases_normalized", "region", "date", "Cases"]
+        },
+        {
+          "type": "formula",
+          "expr": "format(datum.region+\": \"+datum.Cases_normalized,\".1f\") + \" am tag \"+datum.Cases",
+          "as": "info"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "lookup",
+          "from": "source_1",
+          "key": "region",
+          "fields": ["GEN"],
+          "values": ["Cases_normalized", "region", "date", "Cases"]
+        },
+        {
+          "type": "formula",
+          "expr": "format(datum.region+\": \"+datum.Cases_normalized,\".1f\") + \" am tag \"+datum.Cases",
+          "as": "info"
+        },
+        {
+          "type": "formula",
+          "expr": "datum.region+\":  \"  +    format(datum.Cases_normalized,\".1f\") + \" am tag \"+datum.Cases",
+          "as": "info"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"Cases_normalized\"]) && isFinite(+datum[\"Cases_normalized\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_3",
+      "source": "source_1",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "(vlSelectionTest(\"selector036_store\", datum))"
+        }
+      ]
+    },
+    {
+      "name": "data_4",
+      "source": "data_3",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "!(length(data(\"selector038_store\"))) || (vlSelectionTest(\"selector038_store\", datum))"
+        }
+      ]
+    },
+    {
+      "name": "data_5",
+      "source": "data_4",
+      "transform": [
+        {
+          "field": "date",
+          "type": "timeunit",
+          "units": ["year", "month", "date"],
+          "as": ["yearmonthdate_date", "yearmonthdate_date_end"]
+        }
+      ]
+    },
+    {
+      "name": "data_6",
+      "source": "data_4",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "(vlSelectionTest(\"selector039_store\", datum))"
+        },
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"date\"]) || (isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]))) && isValid(datum[\"mobility_variation_smoothed\"]) && isFinite(+datum[\"mobility_variation_smoothed\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_7",
+      "source": "data_4",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "format(datum.mobility_variation_smoothed,\".0f\") + \" % \"+datum.type",
+          "as": "label"
+        },
+        {
+          "field": "date",
+          "type": "timeunit",
+          "units": ["year", "month", "date"],
+          "as": ["yearmonthdate_date", "yearmonthdate_date_end"]
+        },
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"yearmonthdate_date\"]) || (isValid(datum[\"yearmonthdate_date\"]) && isFinite(+datum[\"yearmonthdate_date\"]))) && isValid(datum[\"mobility_variation_smoothed\"]) && isFinite(+datum[\"mobility_variation_smoothed\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_8",
+      "source": "data_3",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"date\"]) || (isValid(datum[\"date\"]) && isFinite(+datum[\"date\"])))"
+        }
+      ]
+    },
+    {
+      "name": "data_9",
+      "source": "data_3",
+      "transform": [
+        {
+          "field": "date",
+          "type": "timeunit",
+          "units": ["year", "month", "date"],
+          "as": ["yearmonthdate_date", "yearmonthdate_date_end"]
+        }
+      ]
+    },
+    {
+      "name": "data_10",
+      "source": "data_3",
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "\"cases: \"   +    format(datum.Cases_normalized,\".1f\")  + \" per 100T inhabitant  \"  +   format(datum.Cases,\".0f\") + \" absolut\" ",
+          "as": "label"
+        },
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"date\"]) || (isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]))) && isValid(datum[\"Cases_normalized\"]) && isFinite(+datum[\"Cases_normalized\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_11",
+      "source": "source_1",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "(vlSelectionTest(\"selector039_store\", datum))"
+        },
+        {
+          "type": "filter",
+          "expr": "(vlSelectionTest(\"selector036_store\", datum))"
+        }
+      ]
+    },
+    {
+      "name": "data_12",
+      "source": "data_11",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "!(length(data(\"selector038_store\"))) || (vlSelectionTest(\"selector038_store\", datum))"
+        },
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"date\"]) || (isValid(datum[\"date\"]) && isFinite(+datum[\"date\"])))"
+        }
+      ]
+    },
+    {
+      "name": "data_13",
+      "source": "data_11",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"date\"]) || (isValid(datum[\"date\"]) && isFinite(+datum[\"date\"])))"
+        }
+      ]
+    },
+    {
+      "name": "data_14",
+      "source": "data_11",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "(isDate(datum[\"date\"]) || (isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]))) && isValid(datum[\"Cases_normalized\"]) && isFinite(+datum[\"Cases_normalized\"])"
+        }
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "name": "projection",
+      "translate": {"signal": "[width / 2, height / 2]"},
+      "center": [5, 55.3],
+      "clipExtent": [[0, 0], [400, 500]],
+      "scale": 2100,
+      "type": "mercator"
+    }
+  ],
+  "signals": [
+    {"name": "childWidth", "value": 400},
+    {"name": "childHeight", "value": 500},
+    {"name": "concat_1_childWidth", "value": 20},
+    {"name": "concat_1_concat_0_childWidth", "value": 700},
+    {"name": "concat_1_concat_0_concat_0_height", "value": 320},
+    {"name": "concat_1_concat_0_concat_1_height", "value": 100},
+    {"name": "concat_1_concat_1_y_step", "value": 20},
+    {
+      "name": "concat_1_concat_1_height",
+      "update": "bandspace(domain('concat_1_concat_1_y').length, 1, 0.5) * concat_1_concat_1_y_step"
+    },
+    {
+      "name": "unit",
+      "value": {},
+      "on": [
+        {"events": "mousemove", "update": "isTuple(group()) ? group() : unit"}
+      ]
+    },
+    {
+      "name": "selector036",
+      "update": "vlSelectionResolve(\"selector036_store\", \"union\")"
+    },
+    {
+      "name": "selector037",
+      "update": "vlSelectionResolve(\"selector037_store\", \"union\")"
+    },
+    {
+      "name": "selector039",
+      "update": "vlSelectionResolve(\"selector039_store\", \"union\")"
+    },
+    {
+      "name": "selector035",
+      "update": "vlSelectionResolve(\"selector035_store\", \"union\")"
+    },
+    {
+      "name": "selector038",
+      "update": "vlSelectionResolve(\"selector038_store\", \"union\", true)"
+    }
+  ],
+  "layout": {"padding": 20, "bounds": "full", "align": "each"},
+  "marks": [
+    {
+      "type": "group",
+      "name": "concat_0_group",
+      "style": "cell",
+      "encode": {
+        "update": {
+          "width": {"signal": "childWidth"},
+          "height": {"signal": "childHeight"}
+        }
+      },
+      "signals": [
+        {
+          "name": "selector036_tuple",
+          "on": [
+            {
+              "events": [{"source": "scope", "type": "click"}],
+              "update": "datum && item().mark.marktype !== 'group' ? {unit: \"concat_0_layer_0\", fields: selector036_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"region\"]]} : null",
+              "force": true
+            },
+            {
+              "events": [{"source": "scope", "type": "dblclick"}],
+              "update": "null"
+            }
+          ]
+        },
+        {
+          "name": "selector036_tuple_fields",
+          "value": [{"type": "E", "field": "region"}]
+        },
+        {
+          "name": "selector036_modify",
+          "on": [
+            {
+              "events": {"signal": "selector036_tuple"},
+              "update": "modify(\"selector036_store\", selector036_tuple, true)"
+            }
+          ]
+        },
+        {
+          "name": "selector037_tuple",
+          "on": [
+            {
+              "events": [{"source": "scope", "type": "mouseover"}],
+              "update": "datum && item().mark.marktype !== 'group' ? {unit: \"concat_0_layer_1\", fields: selector037_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"region\"]]} : null",
+              "force": true
+            },
+            {
+              "events": [{"source": "scope", "type": "dblclick"}],
+              "update": "null"
+            }
+          ]
+        },
+        {
+          "name": "selector037_tuple_fields",
+          "value": [{"type": "E", "field": "region"}]
+        },
+        {
+          "name": "selector037_modify",
+          "on": [
+            {
+              "events": {"signal": "selector037_tuple"},
+              "update": "modify(\"selector037_store\", selector037_tuple, true)"
+            }
+          ]
+        }
+      ],
+      "marks": [
+        {
+          "name": "concat_0_layer_0_marks",
+          "type": "shape",
+          "clip": true,
+          "style": ["geoshape"],
+          "interactive": true,
+          "from": {"data": "data_0"},
+          "encode": {
+            "update": {
+              "stroke": {"value": "black"},
+              "fill": {"value": "#4c78a8"}
+            }
+          },
+          "transform": [{"type": "geoshape", "projection": "projection"}]
+        },
+        {
+          "name": "concat_0_layer_1_marks",
+          "type": "shape",
+          "clip": true,
+          "style": ["geoshape"],
+          "interactive": true,
+          "from": {"data": "data_1"},
+          "encode": {
+            "update": {
+              "fill": {"scale": "concat_0_color", "field": "Cases_normalized"},
+              "stroke": [
+                {
+                  "test": "(vlSelectionTest(\"selector037_store\", datum))",
+                  "value": "darkgray"
+                },
+                {"value": "white"}
+              ],
+              "tooltip": {"signal": "{\"info\": ''+datum[\"info\"]}"}
+            }
+          },
+          "transform": [{"type": "geoshape", "projection": "projection"}]
+        }
+      ],
+      "legends": [
+        {
+          "direction": "vertical",
+          "title": "Number of cases per 100.000 inhabitants",
+          "titleFontSize": 9,
+          "titleOrient": "left",
+          "fill": "concat_0_color",
+          "gradientLength": {"signal": "clamp(childHeight, 64, 200)"},
+          "symbolType": "circle"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "concat_1_group",
+      "layout": {"padding": 20, "bounds": "full", "align": "each"},
+      "marks": [
+        {
+          "type": "group",
+          "name": "concat_1_concat_0_group",
+          "layout": {
+            "padding": 20,
+            "columns": 1,
+            "bounds": "full",
+            "align": "each"
+          },
+          "marks": [
+            {
+              "type": "group",
+              "name": "concat_1_concat_0_concat_0_group",
+              "title": {
+                "text": "Mobility pattern based on different activity type",
+                "frame": "group"
+              },
+              "style": "cell",
+              "encode": {
+                "update": {
+                  "width": {"signal": "concat_1_concat_0_childWidth"},
+                  "height": {"signal": "concat_1_concat_0_concat_0_height"}
+                }
+              },
+              "signals": [
+                {
+                  "name": "selector039_tuple",
+                  "on": [
+                    {
+                      "events": [
+                        {
+                          "source": "scope",
+                          "type": "click",
+                          "markname": "concat_1_concat_0_concat_0_layer_1_layer_0_voronoi"
+                        }
+                      ],
+                      "update": "datum && item().mark.marktype !== 'group' ? {unit: \"concat_1_concat_0_concat_0_layer_1_layer_0\", fields: selector039_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"date\"]]} : null",
+                      "force": true
+                    },
+                    {
+                      "events": [{"source": "scope", "type": "dblclick"}],
+                      "update": "null"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector039_tuple_fields",
+                  "value": [{"type": "E", "field": "date"}]
+                },
+                {
+                  "name": "selector039_modify",
+                  "on": [
+                    {
+                      "events": {"signal": "selector039_tuple"},
+                      "update": "modify(\"selector039_store\", selector039_tuple, true)"
+                    }
+                  ]
+                }
+              ],
+              "marks": [
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_0_pathgroup",
+                  "type": "group",
+                  "from": {
+                    "facet": {
+                      "name": "faceted_path_concat_1_concat_0_concat_0_layer_0_main",
+                      "data": "data_5",
+                      "groupby": ["type"]
+                    }
+                  },
+                  "encode": {
+                    "update": {
+                      "width": {"field": {"group": "width"}},
+                      "height": {"field": {"group": "height"}}
+                    }
+                  },
+                  "marks": [
+                    {
+                      "name": "concat_1_concat_0_concat_0_layer_0_marks",
+                      "type": "line",
+                      "clip": true,
+                      "style": ["line"],
+                      "sort": {"field": "datum[\"yearmonthdate_date\"]"},
+                      "interactive": false,
+                      "from": {
+                        "data": "faceted_path_concat_1_concat_0_concat_0_layer_0_main"
+                      },
+                      "encode": {
+                        "update": {
+                          "opacity": {"value": 0.85},
+                          "interpolate": {"value": "basis"},
+                          "stroke": {
+                            "scale": "concat_1_color",
+                            "field": "type"
+                          },
+                          "tooltip": {
+                            "signal": "{\"date\": ''+datum[\"date\"], \"mobility_variation_smoothed\": format(datum[\"mobility_variation_smoothed\"], \"\")}"
+                          },
+                          "x": {
+                            "scale": "concat_1_concat_0_concat_0_x",
+                            "field": "yearmonthdate_date"
+                          },
+                          "y": {
+                            "scale": "concat_1_concat_0_concat_0_y",
+                            "field": "mobility_variation_smoothed"
+                          },
+                          "defined": {
+                            "signal": "isValid(datum[\"yearmonthdate_date\"]) && isFinite(+datum[\"yearmonthdate_date\"]) && isValid(datum[\"mobility_variation_smoothed\"]) && isFinite(+datum[\"mobility_variation_smoothed\"])"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_1_layer_0_marks",
+                  "type": "symbol",
+                  "clip": true,
+                  "style": ["point"],
+                  "interactive": true,
+                  "from": {"data": "data_8"},
+                  "encode": {
+                    "update": {
+                      "opacity": {"value": 0},
+                      "fill": {"value": "transparent"},
+                      "stroke": {"value": "#4c78a8"},
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_0_x",
+                        "field": "date"
+                      },
+                      "y": {
+                        "signal": "concat_1_concat_0_concat_0_height",
+                        "mult": 0.5
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_1_layer_0_voronoi",
+                  "type": "path",
+                  "interactive": true,
+                  "from": {
+                    "data": "concat_1_concat_0_concat_0_layer_1_layer_0_marks"
+                  },
+                  "encode": {
+                    "update": {
+                      "fill": {"value": "transparent"},
+                      "strokeWidth": {"value": 0.35},
+                      "stroke": {"value": "transparent"},
+                      "isVoronoi": {"value": true}
+                    }
+                  },
+                  "transform": [
+                    {
+                      "type": "voronoi",
+                      "x": {"expr": "datum.datum.x || 0"},
+                      "y": {"expr": "datum.datum.y || 0"},
+                      "size": [
+                        {"signal": "concat_1_concat_0_childWidth"},
+                        {"signal": "concat_1_concat_0_concat_0_height"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_1_layer_1_marks",
+                  "type": "rule",
+                  "clip": true,
+                  "style": ["rule"],
+                  "interactive": false,
+                  "from": {"data": "data_12"},
+                  "encode": {
+                    "update": {
+                      "stroke": {"value": "gray"},
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_0_x",
+                        "field": "date"
+                      },
+                      "y": {"value": 0},
+                      "y2": {"field": {"group": "height"}}
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_1_layer_2_marks",
+                  "type": "symbol",
+                  "clip": true,
+                  "style": ["point"],
+                  "interactive": false,
+                  "from": {"data": "data_6"},
+                  "encode": {
+                    "update": {
+                      "opacity": {"value": 0.7},
+                      "fill": {"value": "transparent"},
+                      "stroke": {"scale": "concat_1_color", "field": "type"},
+                      "tooltip": {
+                        "signal": "{\"date\": ''+datum[\"date\"], \"mobility_variation_smoothed\": format(datum[\"mobility_variation_smoothed\"], \"\")}"
+                      },
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_0_x",
+                        "field": "date"
+                      },
+                      "y": {
+                        "scale": "concat_1_concat_0_concat_0_y",
+                        "field": "mobility_variation_smoothed"
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_1_layer_3_marks",
+                  "type": "text",
+                  "clip": true,
+                  "style": ["text"],
+                  "interactive": false,
+                  "from": {"data": "data_7"},
+                  "encode": {
+                    "update": {
+                      "align": {"value": "left"},
+                      "dx": {"value": 5},
+                      "dy": {"value": -15},
+                      "fontSize": {"value": 12},
+                      "fill": {"scale": "concat_1_color", "field": "type"},
+                      "tooltip": {
+                        "signal": "{\"date\": ''+datum[\"date\"], \"mobility_variation_smoothed\": format(datum[\"mobility_variation_smoothed\"], \"\")}"
+                      },
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_0_x",
+                        "field": "yearmonthdate_date"
+                      },
+                      "y": {
+                        "scale": "concat_1_concat_0_concat_0_y",
+                        "field": "mobility_variation_smoothed"
+                      },
+                      "text": [
+                        {
+                          "test": "(vlSelectionTest(\"selector039_store\", datum))",
+                          "signal": "''+datum[\"label\"]"
+                        },
+                        {"value": " "}
+                      ],
+                      "baseline": {"value": "middle"}
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_0_layer_2_pathgroup",
+                  "type": "group",
+                  "from": {
+                    "facet": {
+                      "name": "faceted_path_concat_1_concat_0_concat_0_layer_2_main",
+                      "data": "data_4",
+                      "groupby": ["type"]
+                    }
+                  },
+                  "encode": {
+                    "update": {
+                      "width": {"field": {"group": "width"}},
+                      "height": {"field": {"group": "height"}}
+                    }
+                  },
+                  "marks": [
+                    {
+                      "name": "concat_1_concat_0_concat_0_layer_2_marks",
+                      "type": "line",
+                      "clip": true,
+                      "style": ["line"],
+                      "sort": {"field": "datum[\"date\"]"},
+                      "interactive": false,
+                      "from": {
+                        "data": "faceted_path_concat_1_concat_0_concat_0_layer_2_main"
+                      },
+                      "encode": {
+                        "update": {
+                          "opacity": {"value": 0.15},
+                          "strokeWidth": {"value": 1},
+                          "stroke": {
+                            "scale": "concat_1_color",
+                            "field": "type"
+                          },
+                          "tooltip": {
+                            "signal": "{\"date\": ''+datum[\"date\"], \"mobility_variation\": format(datum[\"mobility_variation\"], \"\")}"
+                          },
+                          "x": {
+                            "scale": "concat_1_concat_0_concat_0_x",
+                            "field": "date"
+                          },
+                          "y": {
+                            "scale": "concat_1_concat_0_concat_0_y",
+                            "field": "mobility_variation"
+                          },
+                          "defined": {
+                            "signal": "isValid(datum[\"date\"]) && isFinite(+datum[\"date\"]) && isValid(datum[\"mobility_variation\"]) && isFinite(+datum[\"mobility_variation\"])"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "axes": [
+                {
+                  "scale": "concat_1_concat_0_concat_0_y",
+                  "orient": "left",
+                  "offset": 10,
+                  "gridScale": "concat_1_concat_0_concat_0_x",
+                  "grid": true,
+                  "tickCount": {
+                    "signal": "ceil(concat_1_concat_0_concat_0_height/40)"
+                  },
+                  "domain": false,
+                  "labels": false,
+                  "maxExtent": 0,
+                  "minExtent": 0,
+                  "ticks": false,
+                  "zindex": 0
+                },
+                {
+                  "scale": "concat_1_concat_0_concat_0_x",
+                  "orient": "bottom",
+                  "grid": false,
+                  "title": "none",
+                  "labelFlush": true,
+                  "labelOverlap": true,
+                  "tickCount": {
+                    "signal": "ceil(concat_1_concat_0_childWidth/40)"
+                  },
+                  "encode": {
+                    "labels": {
+                      "update": {
+                        "text": {
+                          "signal": "timeFormat(datum.value, timeUnitSpecifier([\"year\",\"month\",\"date\"], {\"year-month\":\"%b %Y \",\"year-month-date\":\"%b %d, %Y \"}))"
+                        }
+                      }
+                    }
+                  },
+                  "zindex": 0
+                },
+                {
+                  "scale": "concat_1_concat_0_concat_0_y",
+                  "orient": "left",
+                  "grid": false,
+                  "title": "% in change of mobility (compared to base value)",
+                  "offset": 10,
+                  "labelOverlap": true,
+                  "tickCount": {
+                    "signal": "ceil(concat_1_concat_0_concat_0_height/40)"
+                  },
+                  "zindex": 0
+                }
+              ]
+            },
+            {
+              "type": "group",
+              "name": "concat_1_concat_0_concat_1_group",
+              "style": "cell",
+              "encode": {
+                "update": {
+                  "width": {"signal": "concat_1_concat_0_childWidth"},
+                  "height": {"signal": "concat_1_concat_0_concat_1_height"}
+                }
+              },
+              "signals": [
+                {
+                  "name": "selector035_x",
+                  "value": [],
+                  "on": [
+                    {
+                      "events": {
+                        "source": "scope",
+                        "type": "mousedown",
+                        "filter": [
+                          "!event.item || event.item.mark.name !== \"selector035_brush\""
+                        ]
+                      },
+                      "update": "[x(unit), x(unit)]"
+                    },
+                    {
+                      "events": {
+                        "source": "window",
+                        "type": "mousemove",
+                        "consume": true,
+                        "between": [
+                          {
+                            "source": "scope",
+                            "type": "mousedown",
+                            "filter": [
+                              "!event.item || event.item.mark.name !== \"selector035_brush\""
+                            ]
+                          },
+                          {"source": "window", "type": "mouseup"}
+                        ]
+                      },
+                      "update": "[selector035_x[0], clamp(x(unit), 0, concat_1_concat_0_childWidth)]"
+                    },
+                    {
+                      "events": {"signal": "selector035_scale_trigger"},
+                      "update": "[scale(\"concat_1_concat_0_concat_1_x\", selector035_yearmonthdate_date[0]), scale(\"concat_1_concat_0_concat_1_x\", selector035_yearmonthdate_date[1])]"
+                    },
+                    {
+                      "events": {"signal": "selector035_translate_delta"},
+                      "update": "clampRange(panLinear(selector035_translate_anchor.extent_x, selector035_translate_delta.x / span(selector035_translate_anchor.extent_x)), 0, concat_1_concat_0_childWidth)"
+                    },
+                    {
+                      "events": {"signal": "selector035_zoom_delta"},
+                      "update": "clampRange(zoomLinear(selector035_x, selector035_zoom_anchor.x, selector035_zoom_delta), 0, concat_1_concat_0_childWidth)"
+                    },
+                    {
+                      "events": [{"source": "scope", "type": "dblclick"}],
+                      "update": "[0, 0]"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_yearmonthdate_date",
+                  "on": [
+                    {
+                      "events": {"signal": "selector035_x"},
+                      "update": "selector035_x[0] === selector035_x[1] ? null : invert(\"concat_1_concat_0_concat_1_x\", selector035_x)"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_scale_trigger",
+                  "value": {},
+                  "on": [
+                    {
+                      "events": [{"scale": "concat_1_concat_0_concat_1_x"}],
+                      "update": "(!isArray(selector035_yearmonthdate_date) || (+invert(\"concat_1_concat_0_concat_1_x\", selector035_x)[0] === +selector035_yearmonthdate_date[0] && +invert(\"concat_1_concat_0_concat_1_x\", selector035_x)[1] === +selector035_yearmonthdate_date[1])) ? selector035_scale_trigger : {}"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_tuple",
+                  "on": [
+                    {
+                      "events": [{"signal": "selector035_yearmonthdate_date"}],
+                      "update": "selector035_yearmonthdate_date ? {unit: \"concat_1_concat_0_concat_1_layer_0\", fields: selector035_tuple_fields, values: [selector035_yearmonthdate_date]} : null"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_tuple_fields",
+                  "value": [
+                    {"field": "yearmonthdate_date", "channel": "x", "type": "R"}
+                  ]
+                },
+                {
+                  "name": "selector035_translate_anchor",
+                  "value": {},
+                  "on": [
+                    {
+                      "events": [
+                        {
+                          "source": "scope",
+                          "type": "mousedown",
+                          "markname": "selector035_brush"
+                        }
+                      ],
+                      "update": "{x: x(unit), y: y(unit), extent_x: slice(selector035_x)}"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_translate_delta",
+                  "value": {},
+                  "on": [
+                    {
+                      "events": [
+                        {
+                          "source": "window",
+                          "type": "mousemove",
+                          "consume": true,
+                          "between": [
+                            {
+                              "source": "scope",
+                              "type": "mousedown",
+                              "markname": "selector035_brush"
+                            },
+                            {"source": "window", "type": "mouseup"}
+                          ]
+                        }
+                      ],
+                      "update": "{x: selector035_translate_anchor.x - x(unit), y: selector035_translate_anchor.y - y(unit)}"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_zoom_anchor",
+                  "on": [
+                    {
+                      "events": [
+                        {
+                          "source": "scope",
+                          "type": "wheel",
+                          "consume": true,
+                          "markname": "selector035_brush"
+                        }
+                      ],
+                      "update": "{x: x(unit), y: y(unit)}"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_zoom_delta",
+                  "on": [
+                    {
+                      "events": [
+                        {
+                          "source": "scope",
+                          "type": "wheel",
+                          "consume": true,
+                          "markname": "selector035_brush"
+                        }
+                      ],
+                      "force": true,
+                      "update": "pow(1.001, event.deltaY * pow(16, event.deltaMode))"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector035_modify",
+                  "on": [
+                    {
+                      "events": {"signal": "selector035_tuple"},
+                      "update": "modify(\"selector035_store\", selector035_tuple, true)"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector039_tuple",
+                  "on": [
+                    {
+                      "events": [
+                        {
+                          "source": "scope",
+                          "type": "click",
+                          "markname": "concat_1_concat_0_concat_1_layer_1_layer_0_voronoi"
+                        }
+                      ],
+                      "update": "datum && item().mark.marktype !== 'group' ? {unit: \"concat_1_concat_0_concat_1_layer_1_layer_0\", fields: selector039_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"date\"]]} : null",
+                      "force": true
+                    },
+                    {
+                      "events": [{"source": "scope", "type": "dblclick"}],
+                      "update": "null"
+                    }
+                  ]
+                },
+                {
+                  "name": "selector039_tuple_fields",
+                  "value": [{"type": "E", "field": "date"}]
+                },
+                {
+                  "name": "selector039_modify",
+                  "on": [
+                    {
+                      "events": {"signal": "selector039_tuple"},
+                      "update": "modify(\"selector039_store\", selector039_tuple, true)"
+                    }
+                  ]
+                }
+              ],
+              "marks": [
+                {
+                  "name": "selector035_brush_bg",
+                  "type": "rect",
+                  "clip": true,
+                  "encode": {
+                    "enter": {
+                      "fill": {"value": "#333"},
+                      "fillOpacity": {"value": 0.125}
+                    },
+                    "update": {
+                      "x": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "signal": "selector035_x[0]"
+                        },
+                        {"value": 0}
+                      ],
+                      "y": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "value": 0
+                        },
+                        {"value": 0}
+                      ],
+                      "x2": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "signal": "selector035_x[1]"
+                        },
+                        {"value": 0}
+                      ],
+                      "y2": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "field": {"group": "height"}
+                        },
+                        {"value": 0}
+                      ]
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_1_layer_0_marks",
+                  "type": "line",
+                  "style": ["line"],
+                  "sort": {"field": "datum[\"yearmonthdate_date\"]"},
+                  "interactive": true,
+                  "from": {"data": "data_9"},
+                  "encode": {
+                    "update": {
+                      "opacity": {"value": 0.85},
+                      "stroke": {"value": "#4c78a8"},
+                      "tooltip": {
+                        "signal": "{\"date\": ''+datum[\"date\"], \"Cases\": format(datum[\"Cases\"], \"\")}"
+                      },
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_1_x",
+                        "field": "yearmonthdate_date"
+                      },
+                      "y": {
+                        "scale": "concat_1_concat_0_concat_1_y",
+                        "field": "Cases_normalized"
+                      },
+                      "defined": {
+                        "signal": "isValid(datum[\"yearmonthdate_date\"]) && isFinite(+datum[\"yearmonthdate_date\"]) && isValid(datum[\"Cases_normalized\"]) && isFinite(+datum[\"Cases_normalized\"])"
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_1_layer_1_layer_0_marks",
+                  "type": "symbol",
+                  "style": ["point"],
+                  "interactive": true,
+                  "from": {"data": "data_8"},
+                  "encode": {
+                    "update": {
+                      "opacity": {"value": 0},
+                      "fill": {"value": "transparent"},
+                      "stroke": {"value": "#4c78a8"},
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_1_x",
+                        "field": "date"
+                      },
+                      "y": {
+                        "signal": "concat_1_concat_0_concat_1_height",
+                        "mult": 0.5
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_1_layer_1_layer_0_voronoi",
+                  "type": "path",
+                  "interactive": true,
+                  "from": {
+                    "data": "concat_1_concat_0_concat_1_layer_1_layer_0_marks"
+                  },
+                  "encode": {
+                    "update": {
+                      "fill": {"value": "transparent"},
+                      "strokeWidth": {"value": 0.35},
+                      "stroke": {"value": "transparent"},
+                      "isVoronoi": {"value": true}
+                    }
+                  },
+                  "transform": [
+                    {
+                      "type": "voronoi",
+                      "x": {"expr": "datum.datum.x || 0"},
+                      "y": {"expr": "datum.datum.y || 0"},
+                      "size": [
+                        {"signal": "concat_1_concat_0_childWidth"},
+                        {"signal": "concat_1_concat_0_concat_1_height"}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "concat_1_concat_0_concat_1_layer_1_layer_1_marks",
+                  "type": "rule",
+                  "style": ["rule"],
+                  "interactive": false,
+                  "from": {"data": "data_13"},
+                  "encode": {
+                    "update": {
+                      "stroke": {"value": "gray"},
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_1_x",
+                        "field": "date"
+                      },
+                      "y": {"value": 0},
+                      "y2": {"field": {"group": "height"}}
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_1_layer_1_layer_2_marks",
+                  "type": "symbol",
+                  "style": ["point"],
+                  "interactive": false,
+                  "from": {"data": "data_14"},
+                  "encode": {
+                    "update": {
+                      "opacity": {"value": 0.7},
+                      "fill": {"value": "transparent"},
+                      "stroke": {"value": "#4c78a8"},
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_1_x",
+                        "field": "date"
+                      },
+                      "y": {
+                        "scale": "concat_1_concat_0_concat_1_y",
+                        "field": "Cases_normalized"
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "concat_1_concat_0_concat_1_layer_1_layer_3_marks",
+                  "type": "text",
+                  "style": ["text"],
+                  "interactive": false,
+                  "from": {"data": "data_10"},
+                  "encode": {
+                    "update": {
+                      "align": {"value": "left"},
+                      "dx": {"value": 5},
+                      "dy": {"value": -20},
+                      "fill": {"value": "black"},
+                      "x": {
+                        "scale": "concat_1_concat_0_concat_1_x",
+                        "field": "date"
+                      },
+                      "y": {
+                        "scale": "concat_1_concat_0_concat_1_y",
+                        "field": "Cases_normalized"
+                      },
+                      "text": [
+                        {
+                          "test": "(vlSelectionTest(\"selector039_store\", datum))",
+                          "signal": "''+datum[\"label\"]"
+                        },
+                        {"value": " "}
+                      ],
+                      "baseline": {"value": "middle"}
+                    }
+                  }
+                },
+                {
+                  "name": "selector035_brush",
+                  "type": "rect",
+                  "clip": true,
+                  "encode": {
+                    "enter": {"fill": {"value": "transparent"}},
+                    "update": {
+                      "x": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "signal": "selector035_x[0]"
+                        },
+                        {"value": 0}
+                      ],
+                      "y": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "value": 0
+                        },
+                        {"value": 0}
+                      ],
+                      "x2": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "signal": "selector035_x[1]"
+                        },
+                        {"value": 0}
+                      ],
+                      "y2": [
+                        {
+                          "test": "data(\"selector035_store\").length && data(\"selector035_store\")[0].unit === \"concat_1_concat_0_concat_1_layer_0\"",
+                          "field": {"group": "height"}
+                        },
+                        {"value": 0}
+                      ],
+                      "stroke": [
+                        {
+                          "test": "selector035_x[0] !== selector035_x[1]",
+                          "value": "white"
+                        },
+                        {"value": null}
+                      ]
+                    }
+                  }
+                }
+              ],
+              "axes": [
+                {
+                  "scale": "concat_1_concat_0_concat_1_y",
+                  "orient": "left",
+                  "grid": true,
+                  "offset": 10,
+                  "gridScale": "concat_1_concat_0_concat_1_x",
+                  "tickCount": {
+                    "signal": "ceil(concat_1_concat_0_concat_1_height/40)"
+                  },
+                  "domain": false,
+                  "labels": false,
+                  "maxExtent": 0,
+                  "minExtent": 0,
+                  "ticks": false,
+                  "zindex": 0
+                },
+                {
+                  "scale": "concat_1_concat_0_concat_1_x",
+                  "orient": "bottom",
+                  "grid": false,
+                  "title": "date (year-month-date), date",
+                  "offset": 2,
+                  "labelFlush": true,
+                  "labelOverlap": true,
+                  "tickCount": {
+                    "signal": "ceil(concat_1_concat_0_childWidth/40)"
+                  },
+                  "encode": {
+                    "labels": {
+                      "update": {
+                        "text": {"signal": "timeFormat(datum.value, '%d %B')"}
+                      }
+                    }
+                  },
+                  "zindex": 0
+                },
+                {
+                  "scale": "concat_1_concat_0_concat_1_y",
+                  "orient": "left",
+                  "grid": false,
+                  "title": "cases",
+                  "offset": 10,
+                  "labelOverlap": true,
+                  "tickCount": {
+                    "signal": "ceil(concat_1_concat_0_concat_1_height/40)"
+                  },
+                  "zindex": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "name": "concat_1_concat_1_group",
+          "style": "cell",
+          "encode": {
+            "update": {
+              "width": {"signal": "concat_1_childWidth"},
+              "height": {"signal": "concat_1_concat_1_height"}
+            }
+          },
+          "signals": [
+            {"name": "width", "update": "concat_1_childWidth"},
+            {
+              "name": "selector038_tuple",
+              "on": [
+                {
+                  "events": [{"source": "scope", "type": "click"}],
+                  "update": "datum && item().mark.marktype !== 'group' ? {unit: \"concat_1_concat_1\", fields: selector038_tuple_fields, values: [(item().isVoronoi ? datum.datum : datum)[\"type\"]]} : null",
+                  "force": true
+                },
+                {
+                  "events": [{"source": "scope", "type": "dblclick"}],
+                  "update": "null"
+                }
+              ]
+            },
+            {
+              "name": "selector038_tuple_fields",
+              "value": [{"field": "type", "channel": "color", "type": "E"}]
+            },
+            {
+              "name": "selector038_toggle",
+              "value": false,
+              "on": [
+                {
+                  "events": [{"source": "scope", "type": "click"}],
+                  "update": "event.shiftKey"
+                },
+                {
+                  "events": [{"source": "scope", "type": "dblclick"}],
+                  "update": "false"
+                }
+              ]
+            },
+            {
+              "name": "selector038_modify",
+              "on": [
+                {
+                  "events": {"signal": "selector038_tuple"},
+                  "update": "modify(\"selector038_store\", selector038_toggle ? null : selector038_tuple, selector038_toggle ? null : true, selector038_toggle ? selector038_tuple : null)"
+                }
+              ]
+            }
+          ],
+          "marks": [
+            {
+              "name": "concat_1_concat_1_marks",
+              "type": "symbol",
+              "style": ["circle"],
+              "interactive": true,
+              "from": {"data": "source_1"},
+              "encode": {
+                "update": {
+                  "opacity": {"value": 0.7},
+                  "size": {"value": 80},
+                  "fill": [
+                    {
+                      "test": "!(length(data(\"selector038_store\"))) || (vlSelectionTest(\"selector038_store\", datum))",
+                      "scale": "concat_1_color",
+                      "field": "type"
+                    },
+                    {"value": "lightgray"}
+                  ],
+                  "x": {"signal": "concat_1_childWidth", "mult": 0.5},
+                  "y": {"scale": "concat_1_concat_1_y", "field": "type"},
+                  "shape": {"value": "circle"}
+                }
+              }
+            }
+          ],
+          "axes": [
+            {
+              "scale": "concat_1_concat_1_y",
+              "orient": "left",
+              "grid": false,
+              "title": "mobility type",
+              "zindex": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "concat_0_color",
+      "type": "linear",
+      "domain": {"data": "data_1", "field": "Cases_normalized"},
+      "range": "heatmap",
+      "interpolate": "hcl",
+      "zero": false
+    },
+    {
+      "name": "concat_1_color",
+      "type": "ordinal",
+      "domain": {
+        "fields": [
+          {"data": "data_5", "field": "type"},
+          {"data": "data_6", "field": "type"},
+          {"data": "data_7", "field": "type"},
+          {"data": "data_4", "field": "type"},
+          {"data": "source_1", "field": "type"}
+        ],
+        "sort": true
+      },
+      "range": "category"
+    },
+    {
+      "name": "concat_1_concat_0_concat_0_x",
+      "type": "time",
+      "domain": {
+        "fields": [
+          {"signal": "{data: datetime(\"2020-02-15T00:00:00\")}"},
+          {"signal": "{data: datetime(\"2020-10-22T14:41:06.114535\")}"}
+        ]
+      },
+      "domainRaw": {"signal": "selector035[\"yearmonthdate_date\"]"},
+      "range": [0, {"signal": "concat_1_concat_0_childWidth"}]
+    },
+    {
+      "name": "concat_1_concat_0_concat_0_y",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "data_5", "field": "mobility_variation_smoothed"},
+          {"data": "data_6", "field": "mobility_variation_smoothed"},
+          {"data": "data_7", "field": "mobility_variation_smoothed"},
+          {"data": "data_4", "field": "mobility_variation"}
+        ]
+      },
+      "range": [{"signal": "concat_1_concat_0_concat_0_height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "concat_1_concat_0_concat_1_x",
+      "type": "time",
+      "domain": {
+        "fields": [
+          {"signal": "{data: datetime(\"2020-02-15T00:00:00\")}"},
+          {"signal": "{data: datetime(\"2020-10-22T14:41:06.114535\")}"}
+        ]
+      },
+      "range": [0, {"signal": "concat_1_concat_0_childWidth"}]
+    },
+    {
+      "name": "concat_1_concat_0_concat_1_y",
+      "type": "linear",
+      "domain": {
+        "fields": [
+          {"data": "data_9", "field": "Cases_normalized"},
+          {"data": "data_14", "field": "Cases_normalized"},
+          {"data": "data_10", "field": "Cases_normalized"}
+        ]
+      },
+      "range": [{"signal": "concat_1_concat_0_concat_1_height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "concat_1_concat_1_y",
+      "type": "point",
+      "domain": {"data": "source_1", "field": "type", "sort": true},
+      "range": {"step": {"signal": "concat_1_concat_1_y_step"}},
+      "padding": 0.5
+    }
+  ],
+  "config": {"style": {"cell": {"strokeWidth": 0}}}
+}
