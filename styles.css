@@ -137,5 +137,20 @@ h4{
 }
     
 td{
-    padding: 4em 10em;
+
+    padding-bottom: 3em;
+    padding-right: 3em;
+
 } 
+
+table{
+
+    margin-left: 3em;
+
+}
+
+tr{
+
+    margin: auto -5em;
+
+}
