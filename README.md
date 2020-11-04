@@ -63,7 +63,7 @@ As can be seen in the line charts, time dates are also presented as a continuous
 We decided to first provide an overview of the change in mobility per week across all german regions. We realized that with multiple heatmaps: one per place category.
 
 #### Heatmap:
-On the Y-Axis of the heatmap we decided to show the regions of germany and on the X-Axis the average change in mobility for a week compared to the base value. For a better readability we decided to display the X-Axis labels with a 45 degree angle. As show the Week numbers and therefore the label names are quite short it is still possible to correlate the label with the correct column on the heatmap.
+On the Y-Axis of the heatmap we decided to show the regions of germany and on the X-Axis the average change in mobility for a week compared to the base value. For a better readability we decided to display the X-Axis labels with a 45 degree angle.
 
 To support the user for a proper interpretation of the values displayed on the heatmap we noted in the subtitle that these changes are relative to the average mobility between the 3rd of January and 6th of February.
 To provide further information a tooltip displays the following information when the cursor hovers over a cell: The date range of the selected week, the selected region and the mobility change.
